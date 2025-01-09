@@ -1,5 +1,4 @@
 import aiohttp
-import asyncio
 import logging
 
 _LOGGER = logging.getLogger(__name__)

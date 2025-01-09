@@ -1,11 +1,12 @@
 
 {
-    "domain": "remi",
-    "name": "Rémi",
+    "domain": "Remi_UrbanHello_hass",
+    "name": "Rémi UrbanHello",
     "version": "1.0.0",
-    "documentation": "https://example.com/documentation",
     "dependencies": [],
-    "codeowners": ["@your_github_username"],
+    "codeowners": ["@pdruart"],
     "requirements": ["aiohttp"],
-    "config_flow": true
+    "config_flow": true,
+    "issue_tracker": "https://github.com/pdruart/Remi_UrbanHello_hass/issues",
+    "documentation": "https://github.com/pdruart/Remi_UrbanHello_hass"
 }
