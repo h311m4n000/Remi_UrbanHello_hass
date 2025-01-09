@@ -1,0 +1,11 @@
+
+{
+    "domain": "remi",
+    "name": "Rémi",
+    "version": "1.0.0",
+    "documentation": "https://example.com/documentation",
+    "dependencies": [],
+    "codeowners": ["@your_github_username"],
+    "requirements": ["aiohttp"],
+    "config_flow": true
+}
