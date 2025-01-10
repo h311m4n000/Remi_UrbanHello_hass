@@ -1,6 +1,6 @@
 
 {
-    "domain": "Remi_UrbanHello_hass",
+    "domain": "remi",
     "name": "Rémi UrbanHello",
     "version": "1.0.0",
     "dependencies": [],
