@@ -16,6 +16,9 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     sensors = []
     for device in devices:
         sensors.append(RemiTemperatureSensor(api, device))
+        sensors.append(RemiFirmwareStatusSensor(api, device))
+        sensors.append(RemiFirmwareVersionSensor(api, device))
+        sensors.append(RemiFaceSensor(api, device))
 
     async_add_entities(sensors, update_before_add=True)
 
@@ -67,3 +70,86 @@ class RemiTemperatureSensor(Entity):
             self._temperature = info["temperature"] / 10.0
         except Exception as e:
             _LOGGER.error("Failed to update temperature for %s: %s", self._name, e)
+
+class RemiFirmwareStatusSensor(Entity):
+    def __init__(self, api, device):
+        self._api = api
+        self._device = device
+        self._name = f"Rémi {device.get('name', 'Unknown Device')} firmware status"
+        self._id = device["objectId"]
+        self._state = None
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def unique_id(self):
+        return f"{self._id}_firmware_status"
+
+    @property
+    def state(self):
+        return self._state
+
+    async def async_update(self):
+        try:
+            info = await self._api.get_remi_info(self._id)
+            need = info.get("firmware_need_update", 0)
+            self._state = "update-needed" if need else "up-to-date"
+        except Exception as e:
+            _LOGGER.error("Failed to update firmware status for %s: %s", self._name, e)
+
+class RemiFirmwareVersionSensor(Entity):
+    def __init__(self, api, device):
+        self._api = api
+        self._device = device
+        self._name = f"Rémi {device.get('name', 'Unknown Device')} firmware version"
+        self._id = device["objectId"]
+        self._state = None
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def unique_id(self):
+        return f"{self._id}_firmware_version"
+
+    @property
+    def state(self):
+        return self._state
+
+    async def async_update(self):
+        try:
+            info = await self._api.get_remi_info(self._id)
+            self._state = info.get("current_firmware_version")
+        except Exception as e:
+            _LOGGER.error("Failed to update firmware version for %s: %s", self._name, e)
+
+class RemiFaceSensor(Entity):
+    def __init__(self, api, device):
+        self._api = api
+        self._device = device
+        self._name = f"Rémi {device.get('name', 'Unknown Device')} face"
+        self._id = device["objectId"]
+        self._state = None
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def unique_id(self):
+        return f"{self._id}_face"
+
+    @property
+    def state(self):
+        return self._state
+
+    async def async_update(self):
+        try:
+            info = await self._api.get_remi_info(self._id)
+            # Prefer face_name from API; fallback to id
+            self._state = info.get("face_name") or info.get("face") or "unknown"
+        except Exception as e:
+            _LOGGER.error("Failed to update face for %s: %s", self._name, e)
