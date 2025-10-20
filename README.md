@@ -3,6 +3,15 @@
 Home Assistant integration `remi_urbanhello_hass` is designed for Rémi UrbanHello.
 This is not an official integration by UrbanHello.
 
+## Note about this fork
+
+This fork was created with cursor and Claude and built on top of the original code. So keep this in mind. I know my way around code, but I'm not a coder.
+
+This fork adds the following functionality:
+- Retrieves the alarms you set in the App. You can now toggle them on or off
+- Allows you to set the illumination of Rémi with a slider (0 - 100)
+- Allows you to set the volume of Rémi with a slide (0 - 100)
+
 ## Installation
 
 Copy the content of the 'custom_components' folder to your home-assistant folder 'config/custom_components' or install through HACS.
