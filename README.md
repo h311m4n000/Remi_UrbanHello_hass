@@ -12,6 +12,8 @@ This fork adds the following functionality:
 - Allows you to set the illumination of Rémi with a slider (0 - 100)
 - Allows you to set the volume of Rémi with a slide (0 - 100)
 
+I have not yet found a way to update the Alarm names in HA automatically when you change them in the App. You will need to restart HA for the alarm names to change if this matters to you.
+
 ## Installation
 
 Copy the content of the 'custom_components' folder to your home-assistant folder 'config/custom_components' or install through HACS.
